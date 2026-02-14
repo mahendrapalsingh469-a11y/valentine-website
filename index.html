@@ -19,7 +19,6 @@ body {
 .heart {
   position: absolute;
   color: rgba(255,255,255,0.8);
-  font-size: 20px;
   animation: floatUp 6s linear infinite;
 }
 
@@ -104,10 +103,17 @@ function yes() {
     document.getElementById("step2").style.display = "none";
     document.getElementById("final").style.display = "block";
     document.getElementById("msg").innerHTML =
-      "🎉 Congratulations <br>" + userName +
-      "<br>You are my Valentine 💖" +
-      "<br><br>💌 You are invited to Vintage Hub at 7 PM for a Valentine’s treat ❤️";
+      "💖 Thank you for being my Valentine 💖<br><br>" +
+      "I am very lucky to have you in my life ❤️<br><br>" +
+      "Click the box below for today’s surprise 🎁<br><br>" +
+      "<button onclick='showSurprise()'>Open Surprise</button>";
   }
+}
+
+function showSurprise() {
+  document.getElementById("msg").innerHTML =
+    "🎉 Surprise! 🎉<br><br>" +
+    "You are invited to Vintage Hub at 7 PM for Valentine’s treat ❤️";
 }
 
 /* Runaway No Button */
@@ -120,7 +126,7 @@ document.addEventListener("mousemove", function(e) {
     e.clientY - (rect.top + rect.height/2)
   );
 
-  if (distance < 100) {
+  if (distance < 100 && document.getElementById("step2").style.display === "block") {
     const box = document.querySelector("#step2");
     const boxRect = box.getBoundingClientRect();
 
