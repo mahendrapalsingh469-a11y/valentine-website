@@ -31,7 +31,7 @@ body {
   background: white;
   padding: 25px;
   border-radius: 12px;
-  width: 320px;
+  width: 340px;
   text-align: center;
   box-shadow: 0 10px 25px rgba(0,0,0,0.2);
   z-index: 2;
@@ -63,9 +63,7 @@ button {
 </audio>
 
 <div class="box" id="step1">
-  <h3>What is your name?</h3>
-  <input id="name" style="padding:8px;width:90%">
-  <br><br>
+  <h3>Hi Roma ❤️<br><br>How are you? 😊</h3>
   <button onclick="goNext()">Continue</button>
 </div>
 
@@ -80,7 +78,6 @@ button {
 </div>
 
 <script>
-let userName = "";
 let step = 0;
 let questions = [
   "Will you be my Valentine? ❤️",
@@ -89,7 +86,6 @@ let questions = [
 ];
 
 function goNext() {
-  userName = document.getElementById("name").value || "My Love";
   document.getElementById("step1").style.display = "none";
   document.getElementById("step2").style.display = "block";
   document.getElementById("question").innerText = questions[step];
@@ -120,21 +116,23 @@ function showSurprise() {
 const noBtn = document.getElementById("no");
 
 document.addEventListener("mousemove", function(e) {
-  const rect = noBtn.getBoundingClientRect();
-  const distance = Math.hypot(
-    e.clientX - (rect.left + rect.width/2),
-    e.clientY - (rect.top + rect.height/2)
-  );
+  if (document.getElementById("step2").style.display === "block") {
+    const rect = noBtn.getBoundingClientRect();
+    const distance = Math.hypot(
+      e.clientX - (rect.left + rect.width/2),
+      e.clientY - (rect.top + rect.height/2)
+    );
 
-  if (distance < 100 && document.getElementById("step2").style.display === "block") {
-    const box = document.querySelector("#step2");
-    const boxRect = box.getBoundingClientRect();
+    if (distance < 100) {
+      const box = document.querySelector("#step2");
+      const boxRect = box.getBoundingClientRect();
 
-    const maxX = boxRect.width - noBtn.offsetWidth;
-    const maxY = boxRect.height - noBtn.offsetHeight;
+      const maxX = boxRect.width - noBtn.offsetWidth;
+      const maxY = boxRect.height - noBtn.offsetHeight;
 
-    noBtn.style.left = Math.random() * maxX + "px";
-    noBtn.style.top = Math.random() * maxY + "px";
+      noBtn.style.left = Math.random() * maxX + "px";
+      noBtn.style.top = Math.random() * maxY + "px";
+    }
   }
 });
 
