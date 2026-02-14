@@ -7,19 +7,41 @@
 <style>
 body {
   font-family: Arial, sans-serif;
-  background: #ff5f8d;
+  background: linear-gradient(135deg, #ff5f8d, #ff99ac);
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
+}
+
+/* Floating Hearts */
+.heart {
+  position: absolute;
+  color: rgba(255,255,255,0.8);
+  font-size: 20px;
+  animation: floatUp 6s linear infinite;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(100vh) scale(0.5);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-10vh) scale(1.2);
+    opacity: 0;
+  }
 }
 
 .box {
   background: white;
   padding: 25px;
-  border-radius: 10px;
-  width: 300px;
+  border-radius: 12px;
+  width: 320px;
   text-align: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  z-index: 2;
 }
 
 button {
@@ -27,6 +49,10 @@ button {
   margin: 10px;
   font-size: 16px;
   cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  background: #ff5f8d;
+  color: white;
 }
 
 #no {
@@ -36,6 +62,11 @@ button {
 </head>
 
 <body>
+
+<!-- Background Music -->
+<audio autoplay loop>
+  <source src="romantic.mp3" type="audio/mpeg">
+</audio>
 
 <div class="box" id="step1">
   <h3>What is your name?</h3>
@@ -78,7 +109,9 @@ function yes() {
     document.getElementById("step2").style.display = "none";
     document.getElementById("final").style.display = "block";
     document.getElementById("msg").innerHTML =
-      "🎉 Congratulations <br>" + userName + "<br>You are my Valentine 💖";
+      "🎉 Congratulations <br>" + userName +
+      "<br>You are my Valentine 💖" +
+      "<br><br>💌 You are invited to Vintage Hub at 7 PM for a Valentine’s treat ❤️";
   }
 }
 
@@ -86,6 +119,23 @@ function moveNo() {
   document.getElementById("no").style.marginLeft =
     Math.floor(Math.random() * 120) + "px";
 }
+
+/* Generate Floating Hearts */
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.classList.add("heart");
+  heart.innerHTML = "❤️";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = Math.random() * 20 + 15 + "px";
+  heart.style.animationDuration = Math.random() * 3 + 3 + "s";
+  document.body.appendChild(heart);
+
+  setTimeout(() => {
+    heart.remove();
+  }, 6000);
+}
+
+setInterval(createHeart, 300);
 </script>
 
 </body>
